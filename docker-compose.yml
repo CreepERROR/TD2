@@ -1,0 +1,33 @@
+version: '3'
+networks:
+  bdorm2.net:
+    driver: bridge
+services:
+  api.bdorm2:
+    image: 'canals/php:latest'
+    env_file: conf/db.env
+    volumes:
+      - ./public:/var/www/html
+      - ./:/var/www
+    working_dir: /var/www/
+    ports:
+      - '2080:80'
+    networks:
+      - bdorm2.net
+    depends_on:
+      - bdorm2.db
+
+  bdorm2.db:
+    image: 'postgres:latest'
+    env_file: conf/db.env
+    ports:
+      - '3309:3308'
+    networks:
+      - bdorm2.net
+
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - bdorm2.net

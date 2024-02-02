@@ -1,0 +1,5 @@
+# orm.yml
+
+catadoct\catalog\entities\Produit:
+  type: entity
+  repositoryClass: catadoct\catalog\repositories\ProduitRepository
